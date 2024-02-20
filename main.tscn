@@ -2,25 +2,24 @@
 
 [ext_resource type="Script" path="res://Main.cs" id="1_sgiue"]
 [ext_resource type="Material" uid="uid://bb526spurwphp" path="res://floor_mat.tres" id="1_vwfyk"]
+[ext_resource type="ArrayMesh" uid="uid://cb3r8kq5v17qa" path="res://BlenderAssets/Meshes/BasicCube_Cube.res" id="3_0mpji"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ksvyi"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_ieshf"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_sgiue")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(5.9933, 0, 0, 0, 0.0162037, 0, 0, 0, 5.9207, 0, 0, 0)
+transform = Transform3D(15.9025, 0, 0, 0, 0.0162037, 0, 0, 0, 15.9058, 0, 0, 0)
 mesh = SubResource("BoxMesh_ksvyi")
 surface_material_override/0 = ExtResource("1_vwfyk")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.96827, 0.249907, 0, -0.249907, 0.96827, 0, 1.94629, 4.65156)
-
-[node name="Cube" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.917969, 0, -0.396651, 0, 1, 0, 0.396651, 0, 0.917969, 0, 0.539658, 0)
-mesh = SubResource("BoxMesh_ieshf")
+transform = Transform3D(1, 0, 0, 0, 0.96827, 0.249907, 0, -0.249907, 0.96827, 0, 2.72952, 5.77025)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.938565, -0.151402, 0.310117, 0, 0.898626, 0.438716, -0.345102, -0.411764, 0.843419, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.945564, 0, -0.325436, 0, 1, 0, 0.325436, 0, 0.945564, 0, 0, 0)
+mesh = ExtResource("3_0mpji")
