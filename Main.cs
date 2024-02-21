@@ -1,23 +1,41 @@
 using Godot;
-using System;
 
 public partial class Main : Node3D
 {
+
+	private const float _MOUSE_SENSITIVITY = 0.005f;
+	private const float _SCROLL_SENSITIVITY = 0.05f;
+
+	private Camera3D camera; //set in ready
+	private Node3D cameraPivot;
+
     public override void _Input(InputEvent theEvent)
     {
-		base._Input(theEvent);
 
 		if (theEvent is InputEventMouseMotion mouseMotionEvent)
 		{
 			if (Input.IsActionPressed("camera_rotate"))
 			{
 				//rotate camera
-				GD.Print("rotating");
+				cameraPivot.RotateY(-mouseMotionEvent.Relative.X * _MOUSE_SENSITIVITY);
+				cameraPivot.RotateObjectLocal(camera.Basis.X,-mouseMotionEvent.Relative.Y * _MOUSE_SENSITIVITY);
+                //camera.Rotation = new Vector3(camera.Rotation.X, camera.Rotation.Y, camera.Rotation.Z);
+                cameraPivot.Rotation = new Vector3(Mathf.Clamp(cameraPivot.Rotation.X,-Mathf.Pi / 2, Mathf.Pi / 2), cameraPivot.Rotation.Y, cameraPivot.Rotation.Z);
 			}
 
 
         }
-
+		if (theEvent is InputEventMouseButton mouseButtonEvent)
+		{
+			if (mouseButtonEvent.ButtonIndex == MouseButton.WheelUp)
+			{
+				cameraPivot.Scale -= new Vector3(_SCROLL_SENSITIVITY, _SCROLL_SENSITIVITY,_SCROLL_SENSITIVITY) ;
+			} 
+			else if (mouseButtonEvent.ButtonIndex == MouseButton.WheelDown)
+			{
+                cameraPivot.Scale += new Vector3(_SCROLL_SENSITIVITY, _SCROLL_SENSITIVITY, _SCROLL_SENSITIVITY);
+            }
+		}
 		
     }
 
@@ -25,9 +43,17 @@ public partial class Main : Node3D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
+		//consts
 		const float SCALE_FACTOR = 1.01f;
 
-		MeshInstance3D cubeMeshInstance3D = GetNode<MeshInstance3D>("Meshes/Cube");
+		//nodes
+		cameraPivot = GetNode<Node3D>("CameraPivot");
+		camera = GetNode<Camera3D>("CameraPivot/Camera3D");
+		
+
+		MeshInstance3D cubeMeshInstance3D = GetNode<MeshInstance3D>("Props/Cube");
+
+
 
 		Mesh cubeMesh = cubeMeshInstance3D.Mesh;
 
@@ -62,8 +88,16 @@ public partial class Main : Node3D
 
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+    private void _on_static_body_3d_mouse_entered()
 	{
+		GD.Print("Mouse Entered");
 	}
+    private void _on_static_body_3d_mouse_exited()
+	{
+		GD.Print("Mouse Exited");
+	}
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    //public override void _Process(double delta)
+    //{
+    //}
 }

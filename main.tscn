@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bb4camcw6w7f4"]
+[gd_scene load_steps=7 format=3 uid="uid://bb4camcw6w7f4"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_sgiue"]
 [ext_resource type="Material" uid="uid://bb526spurwphp" path="res://floor_mat.tres" id="1_vwfyk"]
@@ -7,27 +7,40 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_ksvyi"]
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hain7"]
+points = PackedVector3Array(1, 2, 0.999979, 1, 2, -1, -1, 2, 0.999979, 1, 0, 0.999979, 1, 0, -1, -1, 2, -1, -1, 0, 0.999979, -1, 0, -1)
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_sgiue")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.96827, 0.249907, 0, -0.249907, 0.96827, 0, 2.72952, 5.77025)
+[node name="Props" type="Node" parent="."]
 
-[node name="Meshes" type="Node" parent="."]
-
-[node name="Cube" type="MeshInstance3D" parent="Meshes"]
-transform = Transform3D(0.860697, 0, 0.509117, 0, 1, 0, -0.509117, 0, 0.860697, 0, 0, 0)
-mesh = ExtResource("3_0mpji")
-skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("4_r7ixt")
-
-[node name="Floor" type="MeshInstance3D" parent="Meshes"]
+[node name="Floor" type="MeshInstance3D" parent="Props"]
 transform = Transform3D(15.9025, 0, 0, 0, 0.0162037, 0, 0, 0, 15.9058, 0, 0, 0)
 mesh = SubResource("BoxMesh_ksvyi")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("1_vwfyk")
 
+[node name="Cube" type="MeshInstance3D" parent="Props"]
+transform = Transform3D(0.860697, 0, 0.509117, 0, 1, 0, -0.509117, 0, 0.860697, 0, 0, 0)
+mesh = ExtResource("3_0mpji")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_r7ixt")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Props/Cube"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Cube/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_hain7")
+
 [node name="Lights" type="Node" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lights"]
 transform = Transform3D(0.938565, -0.151402, 0.310118, 0, 0.898626, 0.438716, -0.345102, -0.411764, 0.843419, 0, 0, 0)
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.96827, 0.249907, 0, -0.249907, 0.96827, 0, 2.72952, 5.77025)
+
+[connection signal="mouse_entered" from="Props/Cube/StaticBody3D" to="." method="_on_static_body_3d_mouse_entered"]
+[connection signal="mouse_exited" from="Props/Cube/StaticBody3D" to="." method="_on_static_body_3d_mouse_exited"]

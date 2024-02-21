@@ -25,12 +25,11 @@
               "Title": "Node.cs",
               "DocumentMoniker": "C:\\Users\\jesse\\AppData\\Local\\Temp\\.vsdbgsrc\\04659722e1c364bdc58e975ec3c5f042e84c59da939e3bfb1bba93de26067701\\Node.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Users\\jesse\\AppData\\Local\\Temp\\.vsdbgsrc\\04659722e1c364bdc58e975ec3c5f042e84c59da939e3bfb1bba93de26067701\\Node.cs",
-              "ToolTip": "C:\\Users\\jesse\\AppData\\Local\\Temp\\.vsdbgsrc\\04659722e1c364bdc58e975ec3c5f042e84c59da939e3bfb1bba93de26067701\\Node.cs [Read Only]",
-              "RelativeToolTip": "..\\..\\..\\Users\\jesse\\AppData\\Local\\Temp\\.vsdbgsrc\\04659722e1c364bdc58e975ec3c5f042e84c59da939e3bfb1bba93de26067701\\Node.cs [Read Only]",
-              "ViewState": "AQIAAKkEAAAAAAAAAAAcwL8EAAACAAAA",
+              "ToolTip": "C:\\Users\\jesse\\AppData\\Local\\Temp\\.vsdbgsrc\\04659722e1c364bdc58e975ec3c5f042e84c59da939e3bfb1bba93de26067701\\Node.cs",
+              "RelativeToolTip": "..\\..\\..\\Users\\jesse\\AppData\\Local\\Temp\\.vsdbgsrc\\04659722e1c364bdc58e975ec3c5f042e84c59da939e3bfb1bba93de26067701\\Node.cs",
+              "ViewState": "AQIAAJcEAAAAAAAAAAAcwL8EAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-20T17:59:53.336Z",
-              "EditorCaption": " [Read Only]"
+              "WhenOpened": "2024-02-20T17:59:53.336Z"
             },
             {
               "$type": "Document",
@@ -40,7 +39,7 @@
               "RelativeDocumentMoniker": "Main.cs",
               "ToolTip": "C:\\Dev\\Projects\\VoxelAlgorithm\\Main.cs",
               "RelativeToolTip": "Main.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAABGAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-20T02:44:15.941Z",
               "EditorCaption": ""
