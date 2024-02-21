@@ -42,5 +42,6 @@ transform = Transform3D(0.938565, -0.151402, 0.310118, 0, 0.898626, 0.438716, -0
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.96827, 0.249907, 0, -0.249907, 0.96827, 0, 2.72952, 5.77025)
 
+[connection signal="input_event" from="Props/Cube/StaticBody3D" to="." method="_on_static_body_3d_input_event"]
 [connection signal="mouse_entered" from="Props/Cube/StaticBody3D" to="." method="_on_static_body_3d_mouse_entered"]
 [connection signal="mouse_exited" from="Props/Cube/StaticBody3D" to="." method="_on_static_body_3d_mouse_exited"]

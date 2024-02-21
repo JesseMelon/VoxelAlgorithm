@@ -12,13 +12,13 @@ public partial class Main : Node3D
     public override void _Input(InputEvent theEvent)
     {
 
-		if (theEvent is InputEventMouseMotion mouseMotionEvent)
+		if (theEvent is InputEventMouseMotion inputEventMouseMotion)
 		{
 			if (Input.IsActionPressed("camera_rotate"))
 			{
 				//rotate camera
-				cameraPivot.RotateY(-mouseMotionEvent.Relative.X * _MOUSE_SENSITIVITY);
-				cameraPivot.RotateObjectLocal(camera.Basis.X,-mouseMotionEvent.Relative.Y * _MOUSE_SENSITIVITY);
+				cameraPivot.RotateY(-inputEventMouseMotion.Relative.X * _MOUSE_SENSITIVITY);
+				cameraPivot.RotateObjectLocal(camera.Basis.X,-inputEventMouseMotion.Relative.Y * _MOUSE_SENSITIVITY);
                 //camera.Rotation = new Vector3(camera.Rotation.X, camera.Rotation.Y, camera.Rotation.Z);
                 cameraPivot.Rotation = new Vector3(Mathf.Clamp(cameraPivot.Rotation.X,-Mathf.Pi / 2, Mathf.Pi / 2), cameraPivot.Rotation.Y, cameraPivot.Rotation.Z);
 			}
@@ -88,6 +88,7 @@ public partial class Main : Node3D
 
 	}
 
+	//signals
     private void _on_static_body_3d_mouse_entered()
 	{
 		GD.Print("Mouse Entered");
@@ -96,6 +97,27 @@ public partial class Main : Node3D
 	{
 		GD.Print("Mouse Exited");
 	}
+	private void _on_static_body_3d_input_event(Camera3D camera , InputEvent theEvent, Vector3 clickPosition, Vector3 clickNormal, int shapeIndex)
+	{
+		switch (theEvent)
+		{
+			case InputEventMouseButton inputEventMouseButton:
+				
+				switch (inputEventMouseButton.ButtonIndex)
+				{
+					case MouseButton.Left:
+						if (inputEventMouseButton.IsPressed())
+							GD.Print("Clicked at" + clickPosition);
+						break;
+					case MouseButton.Right:
+						break;
+				}
+				break;
+		
+		}
+	}
+
+
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     //public override void _Process(double delta)
     //{
