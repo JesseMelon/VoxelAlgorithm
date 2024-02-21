@@ -3,24 +3,62 @@ using System;
 
 public partial class Main : Node3D
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    public override void _Input(InputEvent theEvent)
+    {
+		base._Input(theEvent);
+
+		if (theEvent is InputEventMouseMotion mouseMotionEvent)
+		{
+			if (Input.IsActionPressed("camera_rotate"))
+			{
+				//rotate camera
+				GD.Print("rotating");
+			}
+
+
+        }
+
+		
+    }
+
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
+		const float SCALE_FACTOR = 1.01f;
 
-		Node3D basicCubeNode = GetNode<Node3D>("BasicCube");
-		MeshInstance3D cubeMeshInstance3D = GetNode<MeshInstance3D>("BasicCube / Cube");
-		if (basicCubeNode != null)
-			GD.Print("Got blend node");
-		if (cubeMeshInstance3D != null)
-			GD.Print("Got mesh node");
+		MeshInstance3D cubeMeshInstance3D = GetNode<MeshInstance3D>("Meshes/Cube");
 
+		Mesh cubeMesh = cubeMeshInstance3D.Mesh;
 
+		Vector3[] vertices = cubeMesh.GetFaces();
 
-		//Mesh cubeMesh = cubeMeshInstance3D.Mesh;
+		ImmediateMesh immediateMesh = new();
+		immediateMesh.SurfaceBegin(Mesh.PrimitiveType.Lines);
+		immediateMesh.SurfaceSetColor(Colors.Honeydew);
 
-		MeshDataTool mdt = new();
+		for (int i = 0; i < vertices.Length; i+=3)
+		{
+			//tri line a-b
+			immediateMesh.SurfaceAddVertex(vertices[i]);
+            immediateMesh.SurfaceAddVertex(vertices[i + 1]);
 
-		//mdt.CreateFromSurface((ArrayMesh)cubeMesh, 0);
+			//tri line b-c
+            immediateMesh.SurfaceAddVertex(vertices[i + 1]);
+            immediateMesh.SurfaceAddVertex(vertices[i + 2]);
+
+			//tri line c-a
+            immediateMesh.SurfaceAddVertex(vertices[i + 2]);
+            immediateMesh.SurfaceAddVertex(vertices[i]);
+        }
+
+		immediateMesh.SurfaceEnd();
+
+		MeshInstance3D immediateMeshInstance = new();
+		immediateMeshInstance.Scale = new Vector3(SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
+
+		immediateMeshInstance.Mesh = immediateMesh;
+		cubeMeshInstance3D.AddChild(immediateMeshInstance);
 
 	}
 
