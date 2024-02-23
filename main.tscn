@@ -16,7 +16,7 @@ script = ExtResource("1_sgiue")
 [node name="Props" type="Node" parent="."]
 
 [node name="Floor" type="MeshInstance3D" parent="Props"]
-transform = Transform3D(15.9025, 0, 0, 0, 0.0162037, 0, 0, 0, 15.9058, 0, 0, 0)
+transform = Transform3D(15.9025, 0, 0, 0, 0.0162037, 0, 0, 0, 15.9058, 0, -0.01, 0)
 mesh = SubResource("BoxMesh_ksvyi")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("1_vwfyk")

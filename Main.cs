@@ -11,15 +11,15 @@ public partial class Main : Node3D
 
     public override void _Input(InputEvent theEvent)
     {
-
+		
 		if (theEvent is InputEventMouseMotion inputEventMouseMotion)
-		{
+		{	
+			//middle mouse button
 			if (Input.IsActionPressed("camera_rotate"))
 			{
 				//rotate camera
 				cameraPivot.RotateY(-inputEventMouseMotion.Relative.X * _MOUSE_SENSITIVITY);
 				cameraPivot.RotateObjectLocal(camera.Basis.X,-inputEventMouseMotion.Relative.Y * _MOUSE_SENSITIVITY);
-                //camera.Rotation = new Vector3(camera.Rotation.X, camera.Rotation.Y, camera.Rotation.Z);
                 cameraPivot.Rotation = new Vector3(Mathf.Clamp(cameraPivot.Rotation.X,-Mathf.Pi / 2, Mathf.Pi / 2), cameraPivot.Rotation.Y, cameraPivot.Rotation.Z);
 			}
 
@@ -27,6 +27,7 @@ public partial class Main : Node3D
         }
 		if (theEvent is InputEventMouseButton mouseButtonEvent)
 		{
+			//scrolling
 			if (mouseButtonEvent.ButtonIndex == MouseButton.WheelUp)
 			{
 				cameraPivot.Scale -= new Vector3(_SCROLL_SENSITIVITY, _SCROLL_SENSITIVITY,_SCROLL_SENSITIVITY) ;
@@ -61,13 +62,13 @@ public partial class Main : Node3D
 
 		ImmediateMesh immediateMesh = new();
 		StandardMaterial3D material = new();
-		immediateMesh._SurfaceSetMaterial(0, material);
+
 		material.ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded;
-		material.VertexColorUseAsAlbedo = true;
-		material.AlbedoColor = Colors.Red;
+		material.VertexColorUseAsAlbedo = true; //commment and uncomment below to remove override and apply yellow via material
+		//material.AlbedoColor = Colors.Brown; 
 
 		immediateMesh.SurfaceBegin(Mesh.PrimitiveType.Lines);
-		immediateMesh.SurfaceSetColor(Colors.Red);
+		immediateMesh.SurfaceSetColor(Colors.Yellow); //use this line with alternate colours to change w/out need of new material
 
 
 		for (int i = 0; i < vertices.Length; i+=3)
@@ -94,6 +95,27 @@ public partial class Main : Node3D
 
 		immediateMeshInstance.Mesh = immediateMesh;
 		cubeMeshInstance3D.AddChild(immediateMeshInstance);
+
+		ImmediateMesh axisImmediateMesh = new();
+		StandardMaterial3D axisMaterial = new();
+
+		axisMaterial.ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded;
+		axisMaterial.VertexColorUseAsAlbedo = true;
+		axisImmediateMesh.SurfaceBegin(Mesh.PrimitiveType.Lines);
+		axisImmediateMesh.SurfaceSetColor(Colors.Red);
+
+		const float axisLength = 10f;
+
+		axisImmediateMesh.SurfaceAddVertex(new Vector3(0, 0, 0));
+		axisImmediateMesh.SurfaceAddVertex(new Vector3(axisLength, 0, 0));
+
+
+		axisImmediateMesh.SurfaceEnd();
+		axisImmediateMesh.SurfaceSetMaterial(0,axisMaterial);
+		MeshInstance3D axisMeshInstance = new();
+		axisMeshInstance.Mesh = axisImmediateMesh;
+		AddChild(axisMeshInstance);
+		
 
 	}
 
