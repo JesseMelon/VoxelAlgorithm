@@ -60,25 +60,34 @@ public partial class Main : Node3D
 		Vector3[] vertices = cubeMesh.GetFaces();
 
 		ImmediateMesh immediateMesh = new();
+		StandardMaterial3D material = new();
+		immediateMesh._SurfaceSetMaterial(0, material);
+		material.ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded;
+		material.VertexColorUseAsAlbedo = true;
+		material.AlbedoColor = Colors.Red;
+
 		immediateMesh.SurfaceBegin(Mesh.PrimitiveType.Lines);
-		immediateMesh.SurfaceSetColor(Colors.Honeydew);
+		immediateMesh.SurfaceSetColor(Colors.Red);
+
 
 		for (int i = 0; i < vertices.Length; i+=3)
 		{
-			//tri line a-b
-			immediateMesh.SurfaceAddVertex(vertices[i]);
+            //tri line a-b
+            immediateMesh.SurfaceAddVertex(vertices[i]);
             immediateMesh.SurfaceAddVertex(vertices[i + 1]);
 
-			//tri line b-c
+            //tri line b-c
             immediateMesh.SurfaceAddVertex(vertices[i + 1]);
             immediateMesh.SurfaceAddVertex(vertices[i + 2]);
 
-			//tri line c-a
+            //tri line c-a
             immediateMesh.SurfaceAddVertex(vertices[i + 2]);
             immediateMesh.SurfaceAddVertex(vertices[i]);
         }
 
+
 		immediateMesh.SurfaceEnd();
+		immediateMesh.SurfaceSetMaterial(0,material);
 
 		MeshInstance3D immediateMeshInstance = new();
 		immediateMeshInstance.Scale = new Vector3(SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR);
